@@ -1,0 +1,10 @@
+[package]
+name = "envx-lsp"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tower-lsp = "0.20"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-std", "time"] }
+dashmap = "5"
+envx = { git = "https://github.com/aronlo98/envx" }
