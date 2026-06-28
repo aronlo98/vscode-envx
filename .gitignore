@@ -1,0 +1,17 @@
+# Node.js dependencies
+node_modules/
+
+# VSCode extension build output
+out/
+*.vsix
+
+# VSCode test folder
+.vscode-test/
+
+# Mac OS folder attributes
+.DS_Store
+
+# Rust specific (in case it leaks from envx-lsp)
+envx-lsp/target/
+**/*.rs.bk
+Cargo.lock

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "envx",
+  "scopeName": "source.envx",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "#assignments"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.envx",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "match": "^\\s*(@import)\\s+((?:\"[^\"]*\")|(?:'[^']*'))",
+          "captures": {
+            "1": { "name": "keyword.control.import.envx" },
+            "2": { "name": "string.quoted.envx" }
+          }
+        }
+      ]
+    },
+    "assignments": {
+      "patterns": [
+        {
+          "match": "^\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*(=)",
+          "captures": {
+            "1": { "name": "variable.other.envx" },
+            "2": { "name": "keyword.operator.assignment.envx" }
+          }
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#templates"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.envx",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "include": "#templates"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.envx",
+          "begin": "'",
+          "end": "'"
+        }
+      ]
+    },
+    "templates": {
+      "patterns": [
+        {
+          "name": "meta.embedded.block.envx",
+          "begin": "\\$\\{\\{",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.embedded.begin.envx" }
+          },
+          "end": "\\}\\}",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.embedded.end.envx" }
+          },
+          "patterns": [
+            {
+              "include": "#expression"
+            }
+          ]
+        }
+      ]
+    },
+    "expression": {
+      "patterns": [
+        {
+          "name": "keyword.control.envx",
+          "match": "\\b(if|then|else)\\b"
+        },
+        {
+          "name": "constant.language.boolean.envx",
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "name": "constant.numeric.integer.envx",
+          "match": "\\b[0-9]+\\b"
+        },
+        {
+          "name": "variable.parameter.envx",
+          "match": "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+        },
+        {
+          "name": "entity.name.function.envx",
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()"
+        },
+        {
+          "name": "entity.name.function.pipe.envx",
+          "match": "(?<=\\|)\\s*([a-zA-Z_][a-zA-Z0-9_]*)"
+        },
+        {
+          "name": "keyword.operator.pipe.envx",
+          "match": "\\|"
+        },
+        {
+          "include": "#strings"
+        }
+      ]
+    }
+  }
+}

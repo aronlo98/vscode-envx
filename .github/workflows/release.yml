@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build & Package (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            target: win32-x64
+            binary: envx-lsp.exe
+          - os: ubuntu-latest
+            target: linux-x64
+            binary: envx-lsp
+          - os: macos-latest
+            target: darwin-x64
+            binary: envx-lsp
+          - os: macos-14
+            target: darwin-arm64
+            binary: envx-lsp
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build LSP Server
+        run: cargo build --release
+        working-directory: envx-lsp
+
+      - name: Move Binary to bin/
+        run: |
+          mkdir bin
+          cp envx-lsp/target/release/${{ matrix.binary }} bin/
+        shell: bash
+
+      - name: Install Extension Dependencies
+        run: npm ci
+
+      - name: Package Extension
+        run: npx @vscode/vsce package --target ${{ matrix.target }} -o envx-${{ matrix.target }}.vsix
+
+      - name: Upload VSIX to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: envx-${{ matrix.target }}.vsix

@@ -1,0 +1,64 @@
+{
+  "name": "envx",
+  "displayName": "Envx for VSCode",
+  "description": "VSCode support for the envx scripting language",
+  "version": "0.1.0",
+  "icon": "logo.jpg",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:envx"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "envx",
+        "aliases": [
+          "Envx",
+          "envx"
+        ],
+        "extensions": [
+          ".envx"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "envx",
+        "scopeName": "source.envx",
+        "path": "./syntaxes/envx.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Envx configuration",
+      "properties": {
+        "envx.executablePath": {
+          "type": "string",
+          "default": "envx-lsp",
+          "description": "Path to the envx-lsp executable (e.g. /path/to/envx-lsp, or just envx-lsp if in PATH)."
+        }
+      }
+    }
+  },
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "18.x",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  }
+}
