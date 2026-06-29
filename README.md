@@ -18,35 +18,32 @@ A Visual Studio Code extension that provides first-class support for `.envx` fil
 
 ## Installation
 
-You can install the extension using the packaged `.vsix` file either manually through the VSCode interface or via the command line.
+You can easily build, package, and install the extension straight from the source using the provided `Makefile`. Make sure you have `Node.js`, `npm`, and `Rust` installed on your machine.
 
-### Option 1: Command Line
+To compile the language server, package the extension, and install it into VSCode automatically, simply run:
+
 ```sh
-code --install-extension envx-0.1.0.vsix
+make install
 ```
 
-### Option 2: Manual (VSCode UI)
-1. Open the **Extensions** view in VSCode (`Cmd + Shift + X` or `Ctrl + Shift + X`).
-2. Click on the `...` menu in the top right corner of the Extensions view.
-3. Select **Install from VSIX...**
-4. Locate and select the `envx-0.1.0.vsix` file.
+### Other Commands
+
+- `make build`: Compiles the Rust Language Server and the TypeScript extension.
+- `make package`: Builds everything and generates a `.vsix` installer.
+- `make test`: Runs the test suite for the language server.
+- `make clean`: Removes all compiled artifacts and dependencies.
 
 ---
 
-## Requirements & Configuration
+## Configuration
 
-The syntax highlighting works out of the box. However, to use the advanced **Language Server** features (live validation, error diagnostics, and Go to Definition), you must build and configure the `envx-lsp` server included in this repository.
+If you installed the extension via the Marketplace or built it using `make build`, the extension will automatically locate and use the bundled `envx-lsp` binary. **No manual configuration is needed!**
 
-1. Build the LSP server:
-```sh
-cd envx-lsp
-cargo build --release
-```
+However, if you wish to use a custom version of the language server, you can override the path in your VSCode `settings.json`:
 
-2. Configure VSCode to point to the built executable. Set this in your `settings.json`:
 ```json
 {
-    "envx.executablePath": "/absolute/path/to/vscode-envx/envx-lsp/target/release/envx-lsp"
+    "envx.executablePath": "/absolute/path/to/your/custom/envx-lsp"
 }
 ```
 
@@ -57,7 +54,7 @@ cargo build --release
 This extension is part of the broader `envx` project ecosystem. Contributions, bug reports, and feature requests are welcome!
 
 1. Clone the repository.
-2. Run `npm install` inside the `vscode-envx` directory.
+2. Run `make build` to install dependencies and compile the server.
 3. Open the folder in VSCode and press `F5` to launch a new Extension Development Host window.
 
 ---
