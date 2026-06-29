@@ -8,7 +8,7 @@ A Visual Studio Code extension that provides first-class support for `.envx` fil
 
 ## Features
 
-- **Syntax Highlighting:** Rich syntax coloring for variables, strings, template blocks (`${{ ... }}`), keywords (`if`, `then`, `else`, `@import`), and built-in functions.
+- **Syntax Highlighting:** Rich syntax coloring for variables, strings, bare values, template blocks (`${{ ... }}`), section headers (`[SectionName]`), keywords (`if`, `then`, `else`, `@import`), and built-in functions.
 - **Auto-closing Brackets:** Seamless typing experience with auto-closing for `${{ }}` blocks, quotes, and parentheses.
 - **Language Server Protocol (LSP) Integration:** 
   - **Live Validation:** Get instant feedback on syntax errors, unclosed strings, or invalid template blocks as you type, powered by the native `envx` parser.
@@ -51,7 +51,10 @@ However, if you wish to use a custom version of the language server, you can ove
 
 ## Contributing
 
-This extension is part of the broader `envx` project ecosystem. Contributions, bug reports, and feature requests are welcome!
+This extension is part of the broader [envx](https://github.com/aronlo98/envx) project ecosystem. You can find the core language engine, CLI, and documentation in the main repository:
+**[https://github.com/aronlo98/envx](https://github.com/aronlo98/envx)**
+
+Contributions, bug reports, and feature requests are welcome!
 
 1. Clone the repository.
 2. Run `make build` to install dependencies and compile the server.

@@ -2,7 +2,7 @@
   "name": "envx",
   "displayName": "Envx for VSCode",
   "description": "VSCode support for the envx scripting language",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "icon": "logo.jpg",
   "engines": {
     "vscode": "^1.85.0"
